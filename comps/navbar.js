@@ -1,8 +1,5 @@
 import Link from "next/link";
-import { useState } from "react";
 export default function NavBar({ login, setLogin }) {
-    // const [login, setLogin] = useState({ user: "", log: false });
-
     return (
         <nav className="flex justify-between bg-whitesmoke-400 border-b border-solid p-3 shadow-md z-10 sticky top-0 bg-[#f5f5f5] w-full">
             <div className="text-2xl italic">Contestry</div>

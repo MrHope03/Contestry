@@ -27,11 +27,12 @@ export default function Signup() {
     };
 
     const handleSubmit = (e) => {
+        e.preventDefault();
         const name = userRef.current.value;
         const pass = passRef.current.value;
         const checkPass = conpassRef.current.value;
         const email = emailRef.current.value;
-        if (checkPass === pass) {
+        if (name != '' && pass != '' && email != '' && checkPass === pass) {
             addUser({
                 username: name,
                 email: email,

@@ -1,10 +1,9 @@
-import connectMongo from "../../db/connectMongo";
+import connectMongo from "../../../db/connectMongo";
 import Post from "../../db/models.posts"
 
 connectMongo();
 
 export default async function  (req, res) {
-    // res.status(200).json({ name: "John Doe" });
 	const {method} = req;
 	switch (method){
 		case 'GET':

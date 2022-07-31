@@ -7,7 +7,7 @@ export default function NotFound() {
 	},3000)
 	return (
 		<>
-			<p>Paage Not found</p>
+			<p>Page Not found</p>
 		</>
 	)
 }
