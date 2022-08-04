@@ -5,17 +5,22 @@ const postSchema = new Schema({
     username: String,
     caption: {
         type: String,
-        maxLength: [150, "Character Limit Exceeded"],
+        maxLength: [50, "Character Limit Exceeded"],
     },
     image: {
         type: String,
-        default: "/Deer.jpg",
+        default: "/media/Deer.jpg",
     },
     likes: Number,
     comments: {
-        type: String,
-        maxLength: [50, "Character Limit Exceeded"],
+        type: [String],
+        maxLength: [20, "Character Limit Exceeded"],
+    },
+    uploadDate: {
+        type: Date,
+        default: Date.now,
+        immutable: true,
     },
 });
 
-module.exports =  mongoose.models.Post ||  mongoose.model("Post", postSchema);
+module.exports = mongoose.models.Post || mongoose.model("Post", postSchema);

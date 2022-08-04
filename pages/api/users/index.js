@@ -1,5 +1,12 @@
+/* 
+    All Post Section 
+    => Find a single Users
+    => Insert User in the User collection
+*/
+
 import connectMongo from "../../../db/connectMongo";
 import User from "../../../db/models/user";
+
 connectMongo();
 
 export default async function (req, res) {

@@ -1,15 +1,21 @@
 import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
 import Posts from "../comps/Posts";
 
-export default function Home({ login, setLogin }) {
+export async function getStaticProps() {
+    const res = await fetch("http://localhost:3000/api/posts");
+    const { data } = await res.json();
+    return {
+        props: { posts: data },
+    };
+}
+
+export default function Home({ posts }) {
     return (
         <div>
             <Head>
                 <title>Contestry | Home</title>
             </Head>
-            <Posts />
+            <Posts posts={posts} />
         </div>
     );
 }

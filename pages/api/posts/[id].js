@@ -1,14 +1,19 @@
+/*
+	Individual Post page
+*/
+
 import connectMongo from "../../../db/connectMongo";
-import Post from "../../db/models.posts"
+import Post from "../../../db/models/posts"
 
 connectMongo();
 
 export default async function  (req, res) {
 	const {method} = req;
+	const {id} = req.query;
 	switch (method){
 		case 'GET':
 			try {
-				const posts = await Post.find({});
+				const posts = await Post.find({username: id});
 				res.status(200).json({success: true, data: posts})
 			}catch (err){
 				res.status(400).json({success: false});

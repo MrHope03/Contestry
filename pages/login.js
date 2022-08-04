@@ -8,12 +8,18 @@ export default function Login({ login, setLogin }) {
     const passRef = useRef();
     const router = useRouter();
 
+    // User Authentication with DB
     const checkUser = async (name, pass) => {
         const res = await fetch(`http://localhost:3000/api/users/${name}`);
         const { data } = await res.json();
         console.log(name, pass, data);
         if (data != null && data.password == pass) {
-            setLogin({ user: name, log: true });
+            localStorage.setItem(
+                "user",
+                JSON.stringify({ user: name, log: true })
+            );
+            localStorage.setItem("userData", JSON.stringify(data));
+            setLogin({user: name, log: true});
             router.push("/");
         } else {
             alert("No User found");
@@ -27,36 +33,36 @@ export default function Login({ login, setLogin }) {
         if (name === "" || pass === "") return;
         checkUser(name, pass);
     };
-    console.log(login);
+
     return (
         <div className="container w-1/3 rounded-md shadow-[0_0_10px_0_rgba(0,0,0,0.3)] mx-auto my-10">
             <Head>
                 <title>Contestry | Login</title>
             </Head>
-            <h1 className="pt-5 text-center text-4xl text-gray-800 font-semibold">
+            <h1 className="pt-5 text-4xl font-semibold text-center text-gray-800">
                 Login
             </h1>
-            <form className="flex flex-col p-2 items-center justify-evenly">
+            <form className="flex flex-col items-center p-2 justify-evenly">
                 <input
-                    className="my-3 w-1/2 py-1 rounded-lg ring-2 focus:outline-none ring-blue-400 focus:ring-blue-700 text-center"
+                    className="w-1/2 py-1 my-3 text-center rounded-lg ring-2 focus:outline-none ring-blue-400 focus:ring-blue-700"
                     type="text"
                     placeholder="Username"
                     ref={userRef}
                 ></input>
                 <input
-                    className="my-3 w-1/2 p-1 rounded-lg ring-2 focus:outline-none ring-blue-400 focus:ring-blue-700 text-center"
+                    className="w-1/2 p-1 my-3 text-center rounded-lg ring-2 focus:outline-none ring-blue-400 focus:ring-blue-700"
                     type="password"
                     placeholder="Password"
                     ref={passRef}
                 ></input>
                 <button
-                    className="p-2 text-gray-100 bg-blue-400 px-10 rounded-3xl mt-3 hover:bg-blue-500 hover:text-white"
+                    className="p-2 px-10 mt-3 text-gray-100 bg-blue-400 rounded-3xl hover:bg-blue-500 hover:text-white"
                     onClick={handleSubmit}
                 >
                     Login
                 </button>
             </form>
-            <p className="text-center text-md text-blue-500 hover:text-blue-700 hover:underline p-2">
+            <p className="p-2 text-center text-blue-500 text-md hover:text-blue-700 hover:underline">
                 <Link href="/signup">Create a account?</Link>
             </p>
         </div>

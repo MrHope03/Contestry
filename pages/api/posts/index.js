@@ -1,5 +1,5 @@
 import connectMongo from "../../../db/connectMongo";
-import Post from "../../db/models.posts"
+import Post from "../../../db/models/posts"
 
 connectMongo();
 

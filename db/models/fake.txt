@@ -1,0 +1,17 @@
+const post = await Post.create({
+	username: "mrHope",
+	caption: "Feeling good",
+	image: "/media/Deer.jpg",
+	likes: 90,
+	comments: ["Amazing","Wunderbar"],
+});
+const user = await Post.create({
+	username: "beep",
+	email: "beep@gmail.com",
+	password: "beep",
+	name: "Beepethan",
+	age: 29,
+	contact: "720083655",
+	bio: "Hey this is Beep, Landscape Photographer based from LA",
+	verified: true,
+})

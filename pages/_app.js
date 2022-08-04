@@ -1,13 +1,23 @@
 import Layout from "../comps/layout";
 import "../styles/globals.css";
-import { useState } from "react";
-import NavBar from "../comps/navbar";
+import { useEffect, useState } from "react";
 
 function MyApp({ Component, pageProps }) {
-    const [login, setLogin] = useState({ user: "", log: false });
+    // Holds and Update the user login data
+    const [login, setLogin] = useState(() => {
+        return { user: "", log: false };
+    });
+    useEffect(() => {
+        const foundUser = JSON.parse(localStorage.getItem("user"));
+        if (foundUser) {
+            setLogin(foundUser);
+            console.log(foundUser);
+        }
+    }, []);
+    
     return (
         <Layout login={login} setLogin={setLogin}>
-            <Component {...pageProps}/>
+            <Component {...pageProps} />
         </Layout>
     );
 }
