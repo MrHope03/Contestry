@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Posts from "../comps/Posts";
+import Grid from "../comps/Grid";
 
 export async function getStaticProps() {
     const res = await fetch("http://localhost:3000/api/posts");
@@ -15,7 +15,7 @@ export default function Home({ posts }) {
             <Head>
                 <title>Contestry | Home</title>
             </Head>
-            <Posts posts={posts} />
+            <Grid posts={posts} />
         </div>
     );
 }

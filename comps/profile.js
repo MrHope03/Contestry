@@ -28,6 +28,8 @@ export default function ProfileCard({ user, login }) {
     useOutsideAlerter(followRef, setFollowers);
     const followingRef = useRef();
     useOutsideAlerter(followingRef, setFollowing);
+    const uploadRef = useRef();
+    useOutsideAlerter(uploadRef,setIsUpload);
 
     const router = useRouter();
     useEffect(() => {
@@ -187,7 +189,7 @@ export default function ProfileCard({ user, login }) {
                     Following
                 </button>
             )}
-            {isUpload && <Upload setIsUpload={setIsUpload} />}
+            {isUpload && <Upload user={user} setIsUpload={setIsUpload} uploadRef={uploadRef} />}
         </div>
     );
 }

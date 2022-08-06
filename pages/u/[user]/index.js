@@ -1,4 +1,4 @@
-import Posts from "../../../comps/Posts";
+import Grid from "../../../comps/Grid";
 import ProfileCard from "../../../comps/profile";
 
 export const getStaticPaths = async () => {
@@ -30,7 +30,7 @@ export default function User({ posts, user, login }) {
     return (
         <>
             <ProfileCard user={user} login={login} />
-            <Posts posts={posts} />
+            <Grid posts={posts} />
         </>
     );
 }

@@ -20,7 +20,7 @@ export default function Login({ login, setLogin }) {
             );
             localStorage.setItem("userData", JSON.stringify(data));
             setLogin({user: name, log: true});
-            router.push("/");
+            router.push(`u/${name}`);
         } else {
             alert("No User found");
         }

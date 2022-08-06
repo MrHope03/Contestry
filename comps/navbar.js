@@ -30,7 +30,7 @@ export default function NavBar({ login, setLogin }) {
                         </Link>
 
                         <a
-                            className="p-2 text-xl text-gray-700 hover:underline hover:text-black"
+                            className="p-2 text-xl text-gray-700 hover:underline hover:text-black hover:cursor-pointer hover:underline-offset-2"
                             onClick={() => {
                                 localStorage.clear();
                                 setLogin({ user: "", log: false });

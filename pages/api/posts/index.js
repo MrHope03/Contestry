@@ -16,7 +16,8 @@ export default async function  (req, res) {
 			break;		
 		case 'POST':
 			try {
-				const post = await Post.create(req.body);
+				const post = await Post.findOneAndUpdate({ _id: req.body._id },
+                    { $set: req.body });
 				res.status(201).json({success: true, data: post});
 			}
 			catch (err){

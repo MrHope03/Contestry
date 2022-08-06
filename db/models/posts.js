@@ -11,6 +11,7 @@ const postSchema = new Schema({
         type: String,
         default: "/media/Deer.jpg",
     },
+    aspect: String,
     likes: Number,
     comments: {
         type: [String],
