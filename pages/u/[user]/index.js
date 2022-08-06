@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Grid from "../../../comps/Grid";
 import ProfileCard from "../../../comps/profile";
 
@@ -27,10 +28,12 @@ export const getStaticProps = async (context) => {
 };
 
 export default function User({ posts, user, login }) {
+    const [singlePostView, setSinglePostView] = useState(false);
     return (
         <>
             <ProfileCard user={user} login={login} />
             <Grid posts={posts} />
+            {singlePostView && <PostView user={user} posts={posts} />}
         </>
     );
 }

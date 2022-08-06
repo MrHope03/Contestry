@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Head from "next/head";
 import { useRef } from "react";
-import { useRouter} from "next/router";
+import { useRouter } from "next/router";
 
-export default function Signup() {
+export default function Signup({setLogin}) {
     const userRef = useRef();
     const passRef = useRef();
     const emailRef = useRef();
@@ -22,7 +22,13 @@ export default function Signup() {
                 },
                 body: JSON.stringify(user),
             });
-            router.push("/");
+            localStorage.setItem(
+                "user",
+                JSON.stringify({ user: user.username, log: true })
+            );
+            setLogin({ user: user.username, log: true });
+
+            router.push(`/u/${user.username}`);
         } catch (err) {
             console.log(err);
         }
@@ -34,7 +40,7 @@ export default function Signup() {
         const pass = passRef.current.value;
         const checkPass = conpassRef.current.value;
         const email = emailRef.current.value;
-        if (name != '' && pass != '' && email != '' && checkPass === pass) {
+        if (name != "" && pass != "" && email != "" && checkPass === pass) {
             addUser({
                 username: name,
                 email: email,

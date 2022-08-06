@@ -12,9 +12,9 @@ const postSchema = new Schema({
         default: "/media/Deer.jpg",
     },
     aspect: String,
-    likes: Number,
+    likes: [String],
     comments: {
-        type: [String],
+        type: [{ user: String, comment: String }],
         maxLength: [20, "Character Limit Exceeded"],
     },
     uploadDate: {
