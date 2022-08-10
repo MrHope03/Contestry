@@ -29,7 +29,7 @@ export default function ProfileCard({ user, login }) {
     const followingRef = useRef();
     useOutsideAlerter(followingRef, setFollowing);
     const uploadRef = useRef();
-    useOutsideAlerter(uploadRef,setIsUpload);
+    useOutsideAlerter(uploadRef, setIsUpload);
 
     const router = useRouter();
     useEffect(() => {
@@ -92,7 +92,7 @@ export default function ProfileCard({ user, login }) {
                     ))}
                 </ul>
             )}
-            {(following && user.following.length != 0) && (
+            {following && user.following.length != 0 && (
                 <ul
                     className="container w-[200px] rounded-md shadow-[0_0_5px_0px_rgba(0,0,0,0.5)]  z-10 p-2  bg-slate-50 text-center overflow-auto "
                     ref={followingRef}
@@ -189,7 +189,18 @@ export default function ProfileCard({ user, login }) {
                     Following
                 </button>
             )}
-            {isUpload && <Upload user={user} setIsUpload={setIsUpload} uploadRef={uploadRef} />}
+            {loginUser.verified && (
+                <button className="p-1 px-10 m-2 my-2 text-gray-100 bg-red-500 rounded-3xl hover:bg-red-600 hover:text-white" onClick={() => router.push("/contests/create")}>
+                    Create Contest
+                </button>
+            )}
+            {isUpload && (
+                <Upload
+                    user={user}
+                    setIsUpload={setIsUpload}
+                    uploadRef={uploadRef}
+                />
+            )}
         </div>
     );
 }

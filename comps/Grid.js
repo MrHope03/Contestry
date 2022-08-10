@@ -7,11 +7,8 @@ export default function Grid({ posts }) {
             {posts.map((post, val) => {
                 if (post.aspect == "landscape") {
                     return (
-                        <Link href={`/posts/${post._id}`}>
-                            <div
-                                className="relative h-[20vw] w-full col-span-2 row-span-1"
-                                key={val}
-                            >
+                        <Link href={`/posts/${post._id}`} key={val}>
+                            <div className="relative h-[20vw] w-full col-span-2 row-span-1">
                                 <Image
                                     className="transition-transform hover:scale-125 hover:duration-1000 hover:cursor-pointer aspect-video"
                                     src={post.image}
@@ -24,11 +21,8 @@ export default function Grid({ posts }) {
                     );
                 } else {
                     return (
-                        <Link href={`/posts/${post._id}`}>
-                            <div
-                                className="relative w-full h-[20vw] col-span-1 row-span-1"
-                                key={val}
-                            >
+                        <Link href={`/posts/${post._id}`} key={val}>
+                            <div className="relative w-full h-[20vw] col-span-1 row-span-1">
                                 <Image
                                     className="transition-transform hover:scale-125 hover:duration-1000 hover:cursor-pointer aspect-square"
                                     src={post.image}
