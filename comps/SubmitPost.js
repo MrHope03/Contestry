@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useOutsideAlerter } from "./useOutsideAlerter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAdd } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 
 export default function SubmitPost({
     login,
@@ -14,10 +15,8 @@ export default function SubmitPost({
 }) {
     const [posts, setPosts] = useState([]);
     const fetchPosts = async () => {
-        const res = await fetch(
-            `http://localhost:3000/api/posts/${login.user}`
-        );
-        const { data } = await res.json();
+        const res = await axios.get(`/api/posts/${login.user}`);
+        const { data } = await res.data;
         console.log("Data received");
         console.log(data);
         setPosts(data);

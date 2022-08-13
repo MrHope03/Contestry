@@ -5,6 +5,7 @@ import { Router, useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { useOutsideAlerter } from "./useOutsideAlerter";
+import axios from "axios";
 
 export default function ProfileCard({ user, login }) {
     const [isUpload, setIsUpload] = useState(false);
@@ -29,14 +30,12 @@ export default function ProfileCard({ user, login }) {
         try {
             console.log(user);
             const name = user.username;
-            const res = await fetch(`http://localhost:3000/api/users/${name}`, {
-                method: "PUT",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(user),
-            });
+            const res = await axios.put(
+                `http://localhost:3000/api/users/${name}`,
+                {
+                    user,
+                }
+            );
         } catch (err) {
             console.log(err);
         }

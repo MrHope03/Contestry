@@ -1,3 +1,4 @@
+import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -16,69 +17,35 @@ const PostCard = ({ post }) => {
     const date = new Date(post.uploadDate);
     const router = useRouter();
     const deletePost = async () => {
-        const res = await fetch(
-            `http://localhost:3000/api/posts/post/${post._id}`,
-            { method: "DELETE" }
+        const res = await axios.delete(
+            `http://localhost:3000/api/posts/post/${post._id}`
         );
-        const { data } = await res.json();
+        const { data } = await res.data;
         console.log(data);
         router.push(`/u/${post.username}`);
     };
     const handleComment = async (comment) => {
-        const res = await fetch(
-            `http://localhost:3000/api/posts/post/${post._id}`,
-            {
-                method: "POST",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    comments: [
-                        ...post.comments,
-                        { user: loginUser, comment: comment },
-                    ],
-                }),
-            }
-        );
-        const { data } = await res.json();
+        const res = await axios.post(`/api/posts/post/${post._id}`, {
+            comments: [...post.comments, { user: loginUser, comment: comment }],
+        });
+        const { data } = await res.data;
         router.push(`/posts/${post._id}`);
     };
     const handleLikes = async (query) => {
         if (query == "like") {
             const { user } = JSON.parse(localStorage.getItem("user"));
-            const res = await fetch(
-                `http://localhost:3000/api/posts/post/${post._id}`,
-                {
-                    method: "POST",
-                    headers: {
-                        Accept: "application/json",
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        likes: [...post.likes, user],
-                    }),
-                }
-            );
+            const res = await axios.post(`/api/posts/post/${post._id}`, {
+                likes: [...post.likes, user],
+            });
         } else {
             const { user } = JSON.parse(localStorage.getItem("user"));
             const i = post.likes.indexOf(user);
             const arr = post.likes.slice();
             arr.splice(i, 1);
             console.log(arr);
-            const res = await fetch(
-                `http://localhost:3000/api/posts/post/${post._id}`,
-                {
-                    method: "POST",
-                    headers: {
-                        Accept: "application/json",
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        likes: arr,
-                    }),
-                }
-            );
+            const res = await axios.post(`/api/posts/post/${post._id}`, {
+                likes: arr,
+            });
         }
         router.push(`/posts/${post._id}`);
     };

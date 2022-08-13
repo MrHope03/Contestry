@@ -1,13 +1,11 @@
-import { useRouter } from "next/router"
+import { useRouter } from "next/router";
 
 export default function NotFound() {
-	const route = useRouter();
-	setTimeout(() => {
-		route.push("/");
-	},3000)
-	return (
-		<>
-			<p>Page Not found</p>
-		</>
-	)
+    const route = useRouter();
+    return (
+        <div className="text-center text-gray-700">
+            <p>Page Not found</p>
+            <p onClick={() => router.push("/")}>Return to Home</p>
+        </div>
+    );
 }
