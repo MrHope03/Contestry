@@ -1,10 +1,12 @@
+import axios from "axios";
 import { useState } from "react";
 import Grid from "../../../comps/Grid";
 import ProfileCard from "../../../comps/profile";
+import PostView from "../../../comps/PostView";
 
 export const getStaticPaths = async () => {
-    const res = await fetch("http://localhost:3000/api/users");
-    const { data } = await res.json();
+    const res = await axios.get("http://localhost:3000/api/users");
+    const { data } = await res.data;
     const paths = data.map((e) => ({
         params: { user: e.username },
     }));
@@ -16,12 +18,10 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async (context) => {
     const usr = context.params.user;
-    const postRes = await fetch(`http://localhost:3000/api/posts/${usr}`);
-    const postJson = await postRes.json();
-    const postData = postJson.data;
-    const usrRes = await fetch(`http://localhost:3000/api/users/${usr}`);
-    const usrJson = await usrRes.json();
-    const usrData = usrJson.data;
+    const postRes = await axios.get(`http://localhost:3000/api/posts/${usr}`);
+    const postData = await postRes.data.data;
+    const usrRes = await axios.get(`http://localhost:3000/api/users/${usr}`);
+    const usrData = await usrRes.data.data;
     return {
         props: { posts: postData, user: usrData },
     };

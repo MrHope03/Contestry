@@ -2,6 +2,7 @@ import Link from "next/link";
 import Head from "next/head";
 import { useRef } from "react";
 import { useRouter } from "next/router";
+import axios from "axios";
 
 export default function Login({ login, setLogin }) {
     const userRef = useRef();
@@ -10,8 +11,8 @@ export default function Login({ login, setLogin }) {
 
     // User Authentication with DB
     const checkUser = async (name, pass) => {
-        const res = await fetch(`http://localhost:3000/api/users/${name}`);
-        const { data } = await res.json();
+        const res = await axios.get(`/api/users/${name}`);
+        const { data } = await res.data;
         console.log(name, pass, data);
         if (data != null && data.password == pass) {
             localStorage.setItem(
@@ -19,7 +20,7 @@ export default function Login({ login, setLogin }) {
                 JSON.stringify({ user: name, log: true })
             );
             localStorage.setItem("userData", JSON.stringify(data));
-            setLogin({user: name, log: true});
+            setLogin({ user: name, log: true });
             router.push(`u/${name}`);
         } else {
             alert("No User found");

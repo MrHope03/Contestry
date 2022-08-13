@@ -1,9 +1,10 @@
+import axios from "axios";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import contest from ".";
 
-export default function create() {
+export default function CreatePost() {
     useEffect(() => {
         const data = JSON.parse(localStorage.getItem("userData"));
         setContestDetail((contest) => {
@@ -11,20 +12,12 @@ export default function create() {
         });
     }, []);
     const router = useRouter();
-
     const [contestDetail, setContestDetail] = useState({});
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const res = await fetch("http://localhost:3000/api/contests", {
-            method: "POST",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(contestDetail),
-        });
-        const { data } = await res.json();
+        const res = await axios.post("/api/contests", contestDetail);
+        const { data } = await res.data;
         await router.push(`/contests/${data._id}`);
     };
 

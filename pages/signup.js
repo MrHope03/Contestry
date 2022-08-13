@@ -2,8 +2,9 @@ import Link from "next/link";
 import Head from "next/head";
 import { useRef } from "react";
 import { useRouter } from "next/router";
+import axios from "axios";
 
-export default function Signup({setLogin}) {
+export default function Signup({ setLogin }) {
     const userRef = useRef();
     const passRef = useRef();
     const emailRef = useRef();
@@ -13,21 +14,12 @@ export default function Signup({setLogin}) {
     // Adding User to the DB
     const addUser = async (user) => {
         try {
-            console.log(user);
-            const res = await fetch("http://localhost:3000/api/users", {
-                method: "POST",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(user),
-            });
+            const res = await axios.post("/api/users", user);
             localStorage.setItem(
                 "user",
                 JSON.stringify({ user: user.username, log: true })
             );
             setLogin({ user: user.username, log: true });
-
             router.push(`/u/${user.username}`);
         } catch (err) {
             console.log(err);

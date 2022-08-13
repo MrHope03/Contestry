@@ -4,10 +4,11 @@ import { useState, useRef, useEffect } from "react";
 import { useOutsideAlerter } from "../../comps/useOutsideAlerter";
 import SubmitPost from "../../comps/SubmitPost";
 import Grid from "../../comps/Grid";
+import axios from "axios";
 
 export const getStaticPaths = async () => {
-    const res = await fetch("http://localhost:3000/api/contests");
-    const { data } = await res.json();
+    const res = await axios.get("http://localhost:3000/api/contests");
+    const { data } = await res.data;
     const paths = data.map((contest) => ({
         params: { name: contest._id },
     }));
@@ -19,8 +20,8 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async (context) => {
     const id = context.params.name;
-    const res = await fetch(`http://localhost:3000/api/contests/${id}`);
-    const { data } = await res.json();
+    const res = await axios.get(`http://localhost:3000/api/contests/${id}`);
+    const { data } = await res.data;
     return {
         props: { contest: data },
     };
@@ -46,26 +47,19 @@ export default function ContestPage({ contest, login }) {
         console.log("count: " + ct);
         if (ct < contest.maxEntry) setEntry(true);
         else setEntry(false);
-    }, [isAdding]);
+    }, [isAdding, contest]);
 
     useOutsideAlerter(addRef, setIsAdding);
 
     const addPost = async (post) => {
         console.log(contest._id);
-        const res = await fetch(
+        const res = await axios.post(
             `http://localhost:3000/api/contests/${contest._id}`,
-            {
-                method: "POST",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(post),
-            }
+            post
         );
-        const { data } = await res.json();
-        router.reload();
-        // router.push(`/contests/${contest._id}`);
+        const { data } = await res.data;
+        // router.reload();
+        router.push(`/contests/${contest._id}`);
     };
 
     return (

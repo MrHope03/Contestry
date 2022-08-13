@@ -6,14 +6,15 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronUp, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { faSadTear } from "@fortawesome/free-regular-svg-icons";
+import axios from "axios";
 
 export const getStaticProps = async () => {
-    const res = await fetch("http://localhost:3000/api/contests");
-    const { data } = await res.json();
+    const res = await axios.get("http://localhost:3000/api/contests");
+    const { data } = await res.data;
     return { props: { contests: data } };
 };
 
-export default function contest({ contests }) {
+export default function ContestPage({ contests }) {
     const router = useRouter();
     const [isFilter, setIsFilter] = useState(false);
     const [category, setCategory] = useState(() => {
@@ -29,7 +30,7 @@ export default function contest({ contests }) {
                 contests.filter((contest) => contest.category == category)
             );
         else setContestList(contests);
-    }, [category]);
+    }, [category,contests]);
     const categories = [
         "Architecture",
         "Black & White",

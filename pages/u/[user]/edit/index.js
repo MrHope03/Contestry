@@ -1,9 +1,10 @@
+import axios from "axios";
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 
 export const getStaticPaths = async () => {
-    const res = await fetch("http://localhost:3000/api/users");
-    const { data } = await res.json();
+    const res = await axios.get("http://localhost:3000/api/users");
+    const { data } = await res.data;
     const paths = data.map((e) => ({
         params: { user: e.username },
     }));
@@ -15,9 +16,8 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async (context) => {
     const usr = context.params.user;
-    const usrRes = await fetch(`http://localhost:3000/api/users/${usr}`);
-    const usrJson = await usrRes.json();
-    const usrData = usrJson.data;
+    const usrRes = await axios.get(`http://localhost:3000/api/users/${usr}`);
+    const usrData = await usrRes.data.data;
     return {
         props: { user: usrData },
     };
@@ -31,16 +31,8 @@ export default function EditCard({ user }) {
 
     const updateUser = async (user) => {
         try {
-            console.log(user);
             const name = user.username;
-            const res = await fetch(`http://localhost:3000/api/users/${name}`, {
-                method: "PUT",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(user),
-            });
+            const res = await axios.put(`/api/users/${name}`, user);
             router.push(`/u/${name}`);
         } catch (err) {
             console.log(err);
