@@ -20,10 +20,14 @@ const contestSchema = new Schema({
         default: Date.now,
     },
     endDate: Date,
-    maxIndividualEntry: Number,
+    maxEntry: Number,
     posts: {
         type: [Schema.Types.ObjectId],
         ref: "Post",
+    },
+    usersSubmitted: {
+        type: [Schema.Types.ObjectId],
+        ref: "User",
     },
 });
 

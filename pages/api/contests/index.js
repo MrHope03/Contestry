@@ -3,7 +3,7 @@
 */
 
 import connectMongo from "../../../db/connectMongo";
-import Post from "../../../db/models/contest"
+import Contest from "../../../db/models/contest"
 
 connectMongo();
 
@@ -13,16 +13,16 @@ export default async function  (req, res) {
 	switch (method){
 		case 'GET':
 			try {
-				const posts = await Post.find({});
-				res.status(200).json({success: true, data: posts})
+				const contests = await Contest.find({});
+				res.status(200).json({success: true, data: contests})
 			}catch (err){
 				res.status(400).json({success: false});
 			}
 			break;		
 		case 'POST':
 			try {
-				const post = await Post.create(req.body);
-				res.status(201).json({success: true, data: post});
+				const contest = await Contest.create(req.body);
+				res.status(201).json({success: true, data: contest});
 			}
 			catch (err){
 				res.status(400).json({success: false});

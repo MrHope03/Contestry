@@ -3,7 +3,7 @@ import Image from "next/image";
 import axios from "axios";
 import { useRouter } from "next/router";
 
-export default function Upload({ user, setIsUpload, uploadRef }) {
+export default function Upload({ user, setIsUpload, uploadRef, url }) {
     const [caption, setCaption] = useState("");
     const [image, setImage] = useState([]);
     const [imageUrl, setImageUrl] = useState();
@@ -34,14 +34,14 @@ export default function Upload({ user, setIsUpload, uploadRef }) {
             config
         );
         console.log("response", response.data);
-        router.push(`/u/${user.username}`);
+        router.push(url);
         setIsUpload(false);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const formData = new FormData();
-        formData.append("username", user.username);
+        formData.append("username", user);
         formData.append("caption", caption);
         formData.append("imageFile", image[0]);
         formData.append("image", "/media/uploads/" + image[0].name);
@@ -54,7 +54,6 @@ export default function Upload({ user, setIsUpload, uploadRef }) {
         } else {
             formData.append("aspect", "landscape");
         }
-        formData.append("likes", 0);
         formData.append("uploadDate", Date.now());
         uploadPost(formData);
     };

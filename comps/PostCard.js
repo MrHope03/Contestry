@@ -149,7 +149,7 @@ const PostCard = ({ post }) => {
                     />
                 </div>
                 <div className="overflow-auto">
-                    {post.comments.map((comm,val) => (
+                    {post.comments.map((comm, val) => (
                         <p className="py-1 text-gray-700" key={val}>
                             <span
                                 className="font-mono text-lg font-semibold"

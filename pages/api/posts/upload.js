@@ -1,12 +1,12 @@
 import nextConnect from "next-connect";
 import multer from "multer";
 import mongoose from "mongoose";
-import Post from "../../../db/models/posts"
+import Post from "../../../db/models/posts";
 
 const upload = multer({
     storage: multer.diskStorage({
         destination: "./public/media/uploads",
-        filename: (req, file, cb) => cb(null, file.originalname),
+        filename: (req, file, cb) => cb(null,file.originalname),
     }),
 });
 
@@ -28,10 +28,9 @@ apiRoute.post((req, res) => {
         const data = req.body;
         // delete data.imageFile;
         const post = Post.create(data);
-        res.status(201).json({success: true, data: data});
-    }
-    catch (err){
-        res.status(400).json({success: false});
+        res.status(201).json({ success: true, data: data });
+    } catch (err) {
+        res.status(400).json({ success: false });
     }
 });
 

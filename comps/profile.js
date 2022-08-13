@@ -2,22 +2,9 @@ import { useEffect, useState, useRef } from "react";
 import Upload from "./upload";
 import Link from "next/link";
 import { Router, useRouter } from "next/router";
-
-function useOutsideAlerter(ref, setState) {
-    useEffect(() => {
-        function handleClickOutside(event) {
-            if (ref.current && !ref.current.contains(event.target)) {
-                setState(false);
-            }
-        }
-        // Bind the event listener
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            // Unbind the event listener on clean up
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, [ref]);
-}
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { useOutsideAlerter } from "./useOutsideAlerter";
 
 export default function ProfileCard({ user, login }) {
     const [isUpload, setIsUpload] = useState(false);
@@ -56,8 +43,13 @@ export default function ProfileCard({ user, login }) {
     };
     return (
         <div className="w-1/2 p-2 mx-auto my-4 border-b-2 border-gray-400">
-            <p className="font-serif text-5xl font-semibold text-gray-800">
+            <p className="font-serif text-5xl font-semibold text-gray-800 ">
                 {user.username}
+                {user.verified && (
+                    <span className="inline-block p-2 text-blue-500 align-middle text-[25px]">
+                        <FontAwesomeIcon icon={faCheck} size="sm" />
+                    </span>
+                )}
             </p>
             <p className="py-3 text-md text-slate-700">{user.name}</p>
             <p className="py-1 text-lg text-gray-600">{user.bio} </p>
@@ -190,15 +182,19 @@ export default function ProfileCard({ user, login }) {
                 </button>
             )}
             {loginUser.verified && (
-                <button className="p-1 px-10 m-2 my-2 text-gray-100 bg-red-500 rounded-3xl hover:bg-red-600 hover:text-white" onClick={() => router.push("/contests/create")}>
+                <button
+                    className="p-1 px-10 m-2 my-2 text-gray-100 bg-red-500 rounded-3xl hover:bg-red-600 hover:text-white"
+                    onClick={() => router.push("/contests/create")}
+                >
                     Create Contest
                 </button>
             )}
             {isUpload && (
                 <Upload
-                    user={user}
+                    user={user.username}
                     setIsUpload={setIsUpload}
                     uploadRef={uploadRef}
+                    url={`/u/${user.username}`}
                 />
             )}
         </div>
