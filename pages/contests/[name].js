@@ -53,17 +53,12 @@ export default function ContestPage({ contest, login }) {
 
     const addPost = async (post) => {
         console.log(contest._id);
-        const res = await axios.post(
-            `http://localhost:3000/api/contests/${contest._id}`,
-            post
-        );
-        const { data } = await res.data;
-        // router.reload();
+        const res = await axios.post(`/api/contests/${contest._id}`, post);
         router.push(`/contests/${contest._id}`);
     };
 
     return (
-        <>
+        <div>
             <Head>
                 <title>Contest | {contest.contestName}</title>
             </Head>
@@ -117,6 +112,7 @@ export default function ContestPage({ contest, login }) {
                 />
             )}
             <Grid posts={contest.posts} />
-        </>
+            <div />
+        </div>
     );
 }

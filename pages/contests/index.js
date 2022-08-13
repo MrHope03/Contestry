@@ -19,7 +19,7 @@ export default function ContestPage({ contests }) {
     const [isFilter, setIsFilter] = useState(false);
     const [category, setCategory] = useState(() => {
         const url = router.asPath.split("=")[1];
-        console.log(url);
+        // console.log(url);
         if (!url) return "";
         else return url;
     });

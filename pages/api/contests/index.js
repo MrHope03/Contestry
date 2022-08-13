@@ -20,7 +20,6 @@ const apiRoute = nextConnect({
 
 apiRoute.get(async (req, res) => {
 	try {
-		const { id } = req.query;
 		const contests = await Contest.find({});
 		res.status(200).json({success: true, data: contests})
 	}catch (err){

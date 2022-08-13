@@ -42,6 +42,8 @@ apiRoute.post(async (req, res) => {
     }
 });
 
+export default apiRoute;
+
 // export default async function IndividualContestServer(req, res) {
 //     const { method } = req;
 //     const { id } = req.query;
