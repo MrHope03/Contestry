@@ -10,7 +10,7 @@ import axios from "axios";
 
 export const getStaticProps = async () => {
     const res = await axios.get("http://localhost:3000/api/contests");
-    const { data } = await res.data;
+    const { data } = res.data;
     return { props: { contests: data } };
 };
 

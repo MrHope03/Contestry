@@ -11,19 +11,23 @@ export default function Login({ login, setLogin }) {
 
     // User Authentication with DB
     const checkUser = async (name, pass) => {
-        const res = await axios.get(`/api/users/${name}`);
-        const { data } = await res.data;
-        console.log(name, pass, data);
-        if (data != null && data.password == pass) {
-            localStorage.setItem(
-                "user",
-                JSON.stringify({ user: name, log: true })
-            );
-            localStorage.setItem("userData", JSON.stringify(data));
-            setLogin({ user: name, log: true });
-            router.push(`u/${name}`);
-        } else {
-            alert("No User found");
+        try {
+            const res = await axios.get(`/api/users/${name}`);
+            const { data } = res.data;
+            console.log(name, pass, data);
+            if (data != null && data.password == pass) {
+                localStorage.setItem(
+                    "user",
+                    JSON.stringify({ user: name, log: true })
+                );
+                localStorage.setItem("userData", JSON.stringify(data));
+                setLogin({ user: name, log: true });
+                router.push(`u/${name}`);
+            } else {
+                alert("No User found");
+            }
+        } catch (err) {
+            console.log(error);
         }
     };
 

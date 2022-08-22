@@ -6,7 +6,7 @@ import PostView from "../../../comps/PostView";
 
 export const getStaticPaths = async () => {
     const res = await axios.get("http://localhost:3000/api/users");
-    const { data } = await res.data;
+    const { data } = res.data;
     const paths = data.map((e) => ({
         params: { user: e.username },
     }));
@@ -19,9 +19,9 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async (context) => {
     const usr = context.params.user;
     const postRes = await axios.get(`http://localhost:3000/api/posts/${usr}`);
-    const postData = await postRes.data.data;
+    const postData = postRes.data.data;
     const usrRes = await axios.get(`http://localhost:3000/api/users/${usr}`);
-    const usrData = await usrRes.data.data;
+    const usrData = usrRes.data.data;
     return {
         props: { posts: postData, user: usrData },
     };

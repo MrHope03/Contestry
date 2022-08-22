@@ -8,7 +8,7 @@ import axios from "axios";
 
 export const getStaticPaths = async () => {
     const res = await axios.get("http://localhost:3000/api/contests");
-    const { data } = await res.data;
+    const { data } = res.data;
     const paths = data.map((contest) => ({
         params: { name: contest._id },
     }));
@@ -21,7 +21,7 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async (context) => {
     const id = context.params.name;
     const res = await axios.get(`http://localhost:3000/api/contests/${id}`);
-    const { data } = await res.data;
+    const { data } = res.data;
     return {
         props: { contest: data },
     };

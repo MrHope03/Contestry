@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 
 export default function NotFound() {
-    const route = useRouter();
+    const router = useRouter();
     return (
         <div className="text-center text-gray-700">
             <p>Page Not found</p>

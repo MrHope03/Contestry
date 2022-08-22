@@ -19,7 +19,7 @@ export const getStaticProps = async (context) => {
     const postRes = await axios.get(
         `http://localhost:3000/api/posts/post/${post}`
     );
-    const postData = await postRes.data.data;
+    const postData = postRes.data.data;
     return {
         props: { post: postData },
     };

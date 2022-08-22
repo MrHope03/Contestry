@@ -17,8 +17,7 @@ export default function Signup({ setLogin }) {
             const res = await axios.post("/api/users", user);
             localStorage.setItem(
                 "user",
-                JSON.stringify({ user: user.username, log: true }),
-                getCircularReplacer()
+                JSON.stringify({ user: user.username, log: true })
             );
             setLogin({ user: user.username, log: true });
             router.push(`/u/${user.username}`);

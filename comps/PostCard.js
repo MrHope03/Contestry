@@ -17,18 +17,23 @@ const PostCard = ({ post }) => {
     const date = new Date(post.uploadDate);
     const router = useRouter();
     const deletePost = async () => {
+        try {
         const res = await axios.delete(
             `http://localhost:3000/api/posts/post/${post._id}`
         );
-        const { data } = await res.data;
+        const { data } = res.data;
         console.log(data);
         router.push(`/u/${post.username}`);
+        }
+        catch (err) {
+            console.log(false);
+        }
     };
     const handleComment = async (comment) => {
         const res = await axios.post(`/api/posts/post/${post._id}`, {
             comments: [...post.comments, { user: loginUser, comment: comment }],
         });
-        const { data } = await res.data;
+        const { data } = res.data;
         router.push(`/posts/${post._id}`);
     };
     const handleLikes = async (query) => {

@@ -16,7 +16,7 @@ export default function SubmitPost({
     const [posts, setPosts] = useState([]);
     const fetchPosts = async () => {
         const res = await axios.get(`/api/posts/${login.user}`);
-        const { data } = await res.data;
+        const { data } = res.data;
         console.log("Data received");
         console.log(data);
         setPosts(data);

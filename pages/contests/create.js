@@ -17,7 +17,7 @@ export default function CreatePost() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const res = await axios.post("/api/contests", contestDetail);
-        const { data } = await res.data;
+        const { data } =  res.data;
         await router.push(`/contests/${data._id}`);
     };
 

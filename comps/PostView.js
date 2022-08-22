@@ -1,10 +1,8 @@
-import postcss from "postcss";
-import { useState } from "react";
-import PostCard from "./PostCard";
+import Image from "next/image";
 
 export default function PostView({ posts }) {
     return (
-        <div className="flex flex-col">
+        <div className="container flex flex-col w-full mx-auto">
             {posts.map((post) => (
                 <div className="w-1/3 flex flex-col items-center rounded-xl shadow-[0_5px_10px_0_rgba(0,0,0,0.2)] p-1 m-2">
                     <p className="w-full p-1 font-sans text-xl text-left">
