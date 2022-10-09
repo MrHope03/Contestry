@@ -2,6 +2,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+MONGO_URI="mongodb://localhost:27017/Contestry"
+
 First, run the development server:
 
 ```bash
